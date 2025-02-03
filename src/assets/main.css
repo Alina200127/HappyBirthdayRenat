@@ -1,0 +1,513 @@
+@font-face {
+   font-family: "DancingScript";
+   src: url("./fonts/DancingScript-VariableFont_wght.ttf");
+}
+
+@font-face {
+   font-family: "GreatVibes";
+   src: url("./fonts/GreatVibes-Regular.ttf");
+}
+
+@font-face {
+   font-family: "Lighthaus";
+   src: url("./fonts/ofont.ru_Lighthaus.ttf");
+}
+
+:root {
+   --transition: all 0.3s ease-in-out; /* ease-in-out - плавный вход, плавный выход */
+}
+
+body {
+   background-color: #d4cabe;
+}
+
+.container {
+   background-color: #fff;
+   max-width: 1220px;
+   margin: 0 auto;
+   padding: 0 10px;
+   border-radius: 20px;
+}
+
+/* FIRST SCREEN */
+.first-screen {
+   height: 100vh;
+   display: grid; /* блоки разделили экран на две одинаковые части по вертикали */
+   grid-template-columns: 2fr 3fr; /* сделаем их колонками, чтобы деление было по горизонтали */
+   overflow: hidden; /* убираем скролы, скрыв всё что выходит на экран */
+}
+
+.left {
+   /* background-color: #e9e9e9; */
+   background-color: #d4cabe;
+}
+
+.first-screen__title {
+   font-family: "DancingScript", sans-serif;
+   font-size: 8vw;
+   font-weight: bold;
+   position: absolute;
+   top: 8vw;
+   left: 1vw;
+   z-index: 1;
+
+   background: linear-gradient(45deg, #ff6f00 33%, #ff0000);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+}
+.first-screen__subtitle {
+   font-size: 7vw;
+   font-family: "GreatVibes", sans-serif;
+   font-weight: bold;
+   position: absolute;
+   top: 17vw;
+   left: 16vw;
+   color: #001123;
+   z-index: 1;
+}
+.first-screen__text {
+   font-size: 1.3vw;
+   line-height: 1.7;
+   font-weight: 600;
+   position: absolute;
+   bottom: 3.5vw;
+   left: 2vw;
+   color: #001123;
+   font-family: "Lighthaus", sans-serif;
+}
+.first-screen__image {
+   /* размеры картинки */
+   width: 130%;
+   height: 128%;
+
+   background: url("./images/background.png") center -24vw / cover no-repeat;
+
+   /* поворачиваем картинку */
+   transform: rotate(-7deg);
+   position: relative;
+   left: -3.9%;
+   top: -9.9%;
+}
+/* общие свойства линий */
+.first-screen__image::after,
+.first-screen__image::before {
+   content: "";
+   position: absolute;
+   left: -15px;
+   width: 2px;
+   background-color: black;
+}
+/* верхняя линия */
+.first-screen__image::after {
+   top: 0;
+   height: 15%; /* высота линии */
+}
+/* нижняя линия */
+.first-screen__image::before {
+   top: calc(16% + 8vw - 5px);
+   height: 100%;
+}
+
+/* SECOND SCREEN */
+.section__title {
+   font-size: 3.5vw;
+   font-family: "Lighthaus", sans-serif;
+   padding: 20px 0;
+   text-align: center;
+   font-weight: bold;
+
+   background: linear-gradient(to bottom, #ff0000, #ffae00 70%);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+}
+.second-screen__img {
+   width: 400px;
+   transform: rotate(-3deg);
+   border-radius: 30px;
+   filter: drop-shadow(0 0 0.75rem #ffae00);
+}
+.second-screen__img-vertical {
+   width: 500px;
+}
+.second-screen__item {
+   display: flex;
+   justify-content: space-around;
+   text-align: center;
+   align-items: center;
+}
+.second-screen__text {
+   font-size: 1.8vw;
+   font-weight: 500;
+   line-height: 1.3;
+   padding: 0 20px;
+   /* для анимации */
+   opacity: 0.5;
+   transition: opacity 1s;
+
+   background: linear-gradient(to right, #2600ff, #ff8c00 70%);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+}
+/* анимация */
+.second-screen__text.element-show {
+   opacity: 1;
+   transform: scale(1.2);
+   transition: opacity 1s;
+   transition: transform 1s;
+}
+
+/* THIRD SCREEN */
+.third-screen__slider {
+   /* выравниваем слайдер по центру */
+   display: grid;
+   align-items: center;
+   justify-items: center; /* по вертикали */
+   font-family: "Lighthaus", sans-serif;
+}
+.slider {
+   /* чтобы блок был флексовым, но не растягивался на всю ширину экрана, а был по ширине контента */
+   display: inline-flex;
+   gap: 16px; /* отступы между слайдами */
+   align-items: center; /* чтобы слайды ровнялись по центру, а не по верху */
+   margin: 20px 0;
+}
+.slide {
+   width: 4vw;
+   height: 400px;
+   border-radius: 32px;
+   display: grid; /* чтобы сработало align-self в .slide__content */
+   padding: 10px;
+   position: relative; /* для реализации затемнения */
+   overflow: hidden; /* скрываем затемнение выходящие за слайд */
+   transition: var(--transition);
+}
+/* открытый слайд */
+.slide.active {
+   width: 37vw;
+   height: 420px;
+   padding: 20px;
+   /* 8px - вниз 14px - размытость тени */
+   box-shadow: 0 8px 14px rgba(0, 0, 0, 0.7);
+}
+.slide__content {
+   align-self: end; /* перенесли текст вниз */
+   color: #fff;
+   display: grid; /* чтобы регулировать рассположение номера и текста */
+   grid-template-columns: 40px 1fr;
+   gap: 8px; /* отступ между номером и текстом */
+   z-index: 1;
+   transition: var(--transition);
+}
+
+.slide__description {
+   font-size: 18px;
+   /* чтобы центрировать надпись по кружку */
+   display: grid;
+   align-items: center;
+   transition: var(--transition) 0.15s;
+   white-space: nowrap; /* чтобы при скрытии текст не перепрыгивал на несколько строк */
+   opacity: 0;
+   margin-left: 16px;
+}
+/* чтобы надписи выплывали */
+.slide.active .slide__description {
+   opacity: 1; /* полностью не прозрачный */
+   margin-left: 0px;
+}
+.slide:nth-child(1) {
+   background: url("./images/slider/IMG_3230.png") center -45px / auto 150% no-repeat;
+}
+.slide:nth-child(2) {
+   background: url("./images/slider/IMG_3233.png") center -200px / auto 150% no-repeat;
+}
+.slide:nth-child(3) {
+   background: url("./images/slider/IMG_3241.png") center -200px / auto 150% no-repeat;
+}
+.slide:nth-child(4) {
+   background: url("./images/slider/IMG_3220.png") center -200px / auto 150% no-repeat;
+}
+.slide:nth-child(5) {
+   background: url("./images/slider/IMG_3234.png") center -193px / auto 150% no-repeat;
+}
+
+.slide.active:nth-child(1) {
+   background-size: auto 184%;
+}
+.slide.active:nth-child(2) {
+   background-size: auto 185%;
+}
+.slide.active:nth-child(3) {
+   background-size: auto 184%;
+}
+.slide.active:nth-child(4) {
+   background-size: auto 208%;
+}
+.slide.active:nth-child(5) {
+   background-size: auto 185%;
+}
+
+.box__video {
+   padding-top: 10px;
+   padding-bottom: 30px;
+   display: flex;
+   justify-content: center;
+}
+
+.video__end {
+   max-width: 70vw;
+   filter: drop-shadow(0 0 0.75rem #ffae00);
+   border-radius: 10px;
+}
+
+@media (max-width: 1200px) {
+   .first-screen__image::after {
+      height: 13%;
+   }
+   .slide.active {
+      width: 48vw;
+   }
+   .slide {
+      width: 5vw;
+   }
+}
+
+@media (max-width: 1060px) {
+   .first-screen__image {
+      height: 153%;
+   }
+   .first-screen__image::after {
+      height: 11%;
+   }
+   .first-screen__subtitle {
+      left: 15vw;
+   }
+   .slide.active {
+      width: 54vw;
+   }
+   .slide {
+      width: 6vw;
+   }
+}
+
+@media (max-width: 972px) {
+   .first-screen__text {
+      font-size: 1.5vw;
+   }
+   .second-screen__img {
+      width: 37vw;
+   }
+   .second-screen__img-vertical {
+      width: 45vw;
+   }
+}
+
+@media (max-width: 821px) {
+   .first-screen__image::after {
+      height: 10%;
+   }
+   .first-screen__image {
+      background: url(./images/background.png) center -32vw / cover no-repeat;
+   }
+   .slide.active {
+      height: 374px;
+   }
+   .slide {
+      height: 360px;
+   }
+}
+
+@media (max-width: 785px) {
+   .first-screen__image::after {
+      height: 9%;
+   }
+   .first-screen__subtitle {
+      left: 14vw;
+   }
+   .second-screen__text {
+      font-size: 2vw;
+   }
+   .slide:nth-child(4) {
+      background: url(./images/slider/IMG_3220.png) center -180px / auto 150% no-repeat;
+   }
+   .slide:nth-child(3) {
+      background: url(./images/slider/IMG_3241.png) center -178px / auto 150% no-repeat;
+   }
+   .slide:nth-child(2) {
+      background: url(./images/slider/IMG_3233.png) center -183px / auto 150% no-repeat;
+   }
+   .slide:nth-child(5) {
+      background: url(./images/slider/IMG_3234.png) center -172px / auto 150% no-repeat;
+   }
+}
+
+@media (max-width: 720px) {
+   .first-screen__image {
+      background: url(./images/background.png) center -35vw / cover no-repeat;
+   }
+   .first-screen__subtitle {
+      left: 13vw;
+   }
+}
+
+@media (max-width: 665px) {
+   .first-screen__subtitle {
+      left: 11vw;
+   }
+   .first-screen__text {
+      font-size: 1.7vw;
+   }
+   .second-screen__img {
+      width: 33vw;
+   }
+   .second-screen__img-vertical {
+      width: 41vw;
+   }
+}
+
+@media (max-width: 601px) {
+   .first-screen__image {
+      background: url(./images/background.png) center -45vw / cover no-repeat;
+   }
+   .first-screen__title {
+      top: 9vw;
+   }
+   .first-screen__subtitle {
+      top: 19vw;
+   }
+   .slide.active {
+      width: 59vw;
+      height: 346px;
+   }
+   .slide {
+      height: 352px;
+   }
+}
+
+@media (max-width: 566px) {
+   .first-screen__image::after {
+      height: 8%;
+   }
+   .first-screen__text {
+      font-size: 1.8vw;
+   }
+   .first-screen__image {
+      background: url(./images/background.png) center -48vw / cover no-repeat;
+   }
+   .slide:nth-child(2) {
+      background: url(./images/slider/IMG_3233.png) center -174px / auto 150% no-repeat;
+   }
+   .slide:nth-child(4) {
+      background: url(./images/slider/IMG_3220.png) center -165px / auto 150% no-repeat;
+   }
+   .slide:nth-child(3) {
+      background: url(./images/slider/IMG_3241.png) center -169px / auto 150% no-repeat;
+   }
+}
+
+@media (max-width: 501px) {
+   .first-screen__image {
+      background: url(./images/background.png) center -45vw / cover no-repeat;
+   }
+   .first-screen__subtitle {
+      font-size: 8vw;
+      left: 7vw;
+   }
+   .first-screen__title {
+      font-size: 10vw;
+   }
+}
+
+@media (max-width: 460px) {
+   .slide.active:nth-child(5) {
+      background-size: auto 158%;
+   }
+   .slide:nth-child(5) {
+      background: url(./images/slider/IMG_3234.png) center -129px / auto 150% no-repeat;
+   }
+   .slide.active:nth-child(2) {
+      background-size: auto 162%;
+   }
+   .slide:nth-child(2) {
+      background: url(./images/slider/IMG_3233.png) center -132px / auto 150% no-repeat;
+   }
+   .slide.active:nth-child(3) {
+      background-size: auto 162%;
+   }
+   .slide:nth-child(3) {
+      background: url(./images/slider/IMG_3241.png) center -99px / auto 150% no-repeat;
+   }
+   .slide.active:nth-child(4) {
+      background-size: auto 176%;
+   }
+   .slide:nth-child(4) {
+      background: url(./images/slider/IMG_3220.png) center -116px / auto 150% no-repeat;
+   }
+}
+
+@media (max-width: 455px) {
+   .first-screen__subtitle {
+      top: 24vw;
+      left: 6vw;
+   }
+   .first-screen__title {
+      top: 12vw;
+   }
+   .first-screen__image {
+      background: url(./images/background.png) center -60vw / cover no-repeat;
+   }
+   .slide.active {
+      height: 314px;
+   }
+   .slide {
+      height: 293px;
+   }
+}
+
+@media (max-width: 376px) {
+   .first-screen__image::after {
+      height: 10%;
+   }
+   .first-screen__title {
+      top: 16vw;
+   }
+   .first-screen__subtitle {
+      top: 27vw;
+   }
+   .slide.active {
+      height: 243px;
+      width: 51vw;
+   }
+   .slide {
+      height: 220px;
+   }
+   .slide.active:nth-child(1) {
+      background-size: auto 135%;
+   }
+   .slide:nth-child(1) {
+      background: url(./images/slider/IMG_3230.png) center -16px / auto 150% no-repeat;
+   }
+   .slide:nth-child(2) {
+      background: url(./images/slider/IMG_3233.png) center -109px / auto 150% no-repeat;
+   }
+   .slide:nth-child(4) {
+      background: url(./images/slider/IMG_3220.png) center -96px / auto 150% no-repeat;
+   }
+   .slide:nth-child(5) {
+      background: url(./images/slider/IMG_3234.png) center -90px / auto 150% no-repeat;
+   }
+}
+
+@media (max-width: 320px) {
+   .slide.active:nth-child(2) {
+      background-size: auto 148%;
+   }
+   .slide:nth-child(2) {
+      background: url(./images/slider/IMG_3233.png) center -67px / auto 150% no-repeat;
+   }
+   .slide:nth-child(5) {
+      background: url(./images/slider/IMG_3234.png) center -45px / auto 150% no-repeat;
+   }
+   .slide.active:nth-child(5) {
+      background-size: auto 128%;
+   }
+}
